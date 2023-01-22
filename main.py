@@ -5,13 +5,13 @@ import time
 import tkinter
 
 # put in your API key below
-ALPHA_VANTAGE_API_KEY='your key'
+ALPHA_VANTAGE_API_KEY = 'your key'
 # put in your API key below
 NEWS_API_KEY = "your key"
 AV_ENDPOINT = 'https://www.alphavantage.co/query?'
 NEWS_API_ENDPOINT = 'https://newsapi.org/v2/everything?'
 # put in the 'from' email below. This is the one that will send the alert
-MY_EMAIL= 'your email'
+MY_EMAIL = 'your email'
 
 # Create GUI to set up user's stocks that they want alerts on
 window = tkinter.Tk()
@@ -157,8 +157,8 @@ def create_news(companies_list):
             news = good_news_or_bad(change)
             headlines, urls = get_recent_news(company_name=company, stock_data=data)
             email_message += f"""
-            {news} \n
             {company}: {change}%\n
+            {news} \n
             \t{headlines[0]}\n
             \t{urls[0]}
             \t{headlines[1]}\n
@@ -170,10 +170,9 @@ def create_news(companies_list):
         else:
             news = good_news_or_bad(change)
             email_message += f"""
-            {news} \n
             {company}: {change}%\n
+            {news} \n
             ________________________________________________________"""
-
         time.sleep(3)
     return email_message
 
@@ -190,7 +189,8 @@ def get_email():
 def send_email(email):
     with smtplib.SMTP('smtp.gmail.com', 587, timeout=120) as connection:
         connection.starttls()
-        connection.login(user=MY_EMAIL, password='goalqxfzxfjnaood')
+        # add in your password
+        connection.login(user=MY_EMAIL, password='your password')
         to_email = get_email()
         connection.sendmail(from_addr=MY_EMAIL, to_addrs=to_email,
                             msg=email.encode('utf-8'))
